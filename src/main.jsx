@@ -30,6 +30,7 @@ import {
   X,
   Zap
 } from 'lucide-react';
+import { FaFacebookF, FaTiktok } from 'react-icons/fa';
 import './styles.css';
 
 const gear = [
@@ -142,6 +143,21 @@ const highlights = [
   { icon: Music2, title: 'DJ Entertainment', text: 'Flexible music selections for your audience.' }
 ];
 
+const socialLinks = [
+  {
+    name: 'Facebook',
+    url: 'https://www.facebook.com/share/1GkBMUyFVd/',
+    icon: FaFacebookF,
+    ariaLabel: 'DARA Entertainment Facebook'
+  },
+  {
+    name: 'TikTok',
+    url: 'https://www.tiktok.com/@dhara_entertainment?_r=1&_t=ZS-9A74NTbB1j6',
+    icon: FaTiktok,
+    ariaLabel: 'DARA Entertainment TikTok'
+  }
+];
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeGear, setActiveGear] = useState(0);
@@ -199,6 +215,14 @@ function App() {
               <a href="https://wa.me/94779847112" className="btn btn-ghost" target="_blank" rel="noreferrer">
                 <MessageCircle size={18} /> WhatsApp Us
               </a>
+            </div>
+            <div className="hero-follow" aria-label="Follow DARA Entertainment">
+              <span>Follow us</span>
+              {socialLinks.map(({ name, url, icon: Icon, ariaLabel }) => (
+                <a key={name} href={url} target="_blank" rel="noopener noreferrer" aria-label={ariaLabel}>
+                  <Icon aria-hidden="true" /> {name}
+                </a>
+              ))}
             </div>
             <div className="hero-trust">
               <div><strong>6</strong><span>Event categories</span></div>
@@ -369,6 +393,18 @@ function App() {
               <div><span><MapPin size={20} /></span><div><small>Location</small><strong>Rangenama, Panawala</strong></div></div>
               <a href="mailto:hello@daraentertainment.lk"><span><Mail size={20} /></span><div><small>Email</small><strong>hello@daraentertainment.lk</strong></div></a>
             </div>
+
+            <div className="contact-social">
+              <span className="contact-social-label">Follow DARA Entertainment</span>
+              <div className="contact-social-links">
+                {socialLinks.map(({ name, url, icon: Icon, ariaLabel }) => (
+                  <a key={name} href={url} target="_blank" rel="noopener noreferrer" aria-label={ariaLabel}>
+                    <Icon aria-hidden="true" />
+                    <span>{name}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
           <form className="contact-form" onSubmit={handleSubmit}>
@@ -405,8 +441,10 @@ function App() {
           <a href="#contact">Contact</a>
         </div>
         <div className="footer-social">
-          <a href="#" aria-label="Facebook">f</a>
           <a href="#" aria-label="Instagram"><Instagram size={19} /></a>
+          {socialLinks.map(({ name, url, icon: Icon, ariaLabel }) => (
+            <a key={name} href={url} aria-label={ariaLabel} target="_blank" rel="noopener noreferrer"><Icon aria-hidden="true" /></a>
+          ))}
           <a href="https://wa.me/94779847112" aria-label="WhatsApp" target="_blank" rel="noreferrer"><MessageCircle size={19} /></a>
         </div>
         <p className="copyright">© {year} DARA Entertainment. All rights reserved.</p>

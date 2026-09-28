@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "typescript": "~5.8.2",
+    "lucide-react": "^0.468.0",
     "react": "latest",
     "react-dom": "latest",
-    "lucide-react": "^0.468.0"
-  },
-  "devDependencies": {}
+    "react-icons": "^5.7.0",
+    "typescript": "~5.8.2",
+    "vite": "latest"
+  }
 }
