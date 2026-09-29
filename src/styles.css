@@ -119,7 +119,8 @@ body::before {
 .hero-trust strong { font-family: Orbitron, sans-serif; font-size: 24px; color: #fff; }
 .hero-trust span { color: #7f7f84; font-size: 12px; }
 .hero-card { position: relative; z-index: 2; padding: 14px; border: 1px solid var(--gold-line); border-radius: 34px; background: linear-gradient(160deg, rgba(255,189,26,.08), rgba(255,255,255,.02)); box-shadow: var(--shadow); transform: rotate(1.4deg); }
-.hero-card img { width: 100%; aspect-ratio: 1.48; object-fit: cover; border-radius: 24px; }
+.hero-card img { width: 100%; aspect-ratio: 1; border-radius: 24px; }
+.hero-card .hero-logo { object-fit: contain; padding: clamp(28px, 7vw, 74px); background: radial-gradient(circle at 50% 45%, rgba(255,189,26,.16), transparent 48%), linear-gradient(135deg, #111113, #09090a); }
 .hero-card-badge { position: absolute; left: 34px; bottom: 34px; display: inline-flex; align-items: center; gap: 8px; padding: 11px 14px; border-radius: 999px; color: #111; background: #ffd257; font-size: 12px; font-weight: 800; box-shadow: 0 12px 34px rgba(0,0,0,.25); }
 
 .highlight-strip { width: min(1240px, calc(100% - 36px)); margin: 0 auto 52px; display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: #0c0c0d; }

@@ -232,7 +232,7 @@ function App() {
           </div>
 
           <div className="hero-card">
-            <img src="/assets/dara-cover.png" alt="DARA Entertainment event setup" />
+            <img className="hero-logo" src="/assets/dara-logo.png" alt="DARA Entertainment logo" />
             <div className="hero-card-badge"><Zap size={17} /> Available for bookings</div>
           </div>
         </section>
