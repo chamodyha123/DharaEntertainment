@@ -1,5 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import emailjs from '@emailjs/browser';
 import {
   ArrowRight,
   Award,
@@ -161,7 +163,8 @@ const socialLinks = [
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeGear, setActiveGear] = useState(0);
-  const [formSent, setFormSent] = useState(false);
+  const [formStatus, setFormStatus] = useState('idle');
+  const formRef = useRef(null);
   const year = useMemo(() => new Date().getFullYear(), []);
 
   useEffect(() => {
@@ -170,9 +173,28 @@ function App() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setFormSent(true);
+
+    if (formStatus === 'sending' || !formRef.current) return;
+
+    setFormStatus('sending');
+
+    try {
+      await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        {
+          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+        }
+      );
+      setFormStatus('success');
+      formRef.current.reset();
+    } catch (error) {
+      console.error('EmailJS inquiry submission failed:', error);
+      setFormStatus('error');
+    }
   };
 
   return (
@@ -391,7 +413,7 @@ function App() {
               <a href="tel:+94779847112"><span><Phone size={20} /></span><div><small>Call / WhatsApp</small><strong>077 984 7112</strong></div></a>
               <a href="tel:+94766632772"><span><Phone size={20} /></span><div><small>Alternative number</small><strong>076 663 2772</strong></div></a>
               <div><span><MapPin size={20} /></span><div><small>Location</small><strong>Rangenama, Panawala</strong></div></div>
-              <a href="mailto:hello@daraentertainment.lk"><span><Mail size={20} /></span><div><small>Email</small><strong>hello@daraentertainment.lk</strong></div></a>
+              <a href="mailto:akashnipun66@gmail.com"><span><Mail size={20} /></span><div><small>Email</small><strong>akashnipun66@gmail.com</strong></div></a>
             </div>
 
             <div className="contact-social">
@@ -407,11 +429,12 @@ function App() {
             </div>
           </div>
 
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form ref={formRef} className="contact-form" onSubmit={handleSubmit}>
             <div className="form-row">
               <label>Your name<input required name="name" placeholder="Name" /></label>
               <label>Phone number<input required name="phone" placeholder="07X XXX XXXX" /></label>
             </div>
+            <label>Email address<input required type="email" name="email" placeholder="your@email.com" /></label>
             <div className="form-row">
               <label>Event type
                 <select name="event" defaultValue="Wedding Ceremony">
@@ -422,9 +445,11 @@ function App() {
             </div>
             <label>Event location<input name="location" placeholder="Venue / town" /></label>
             <label>Message<textarea rows="5" name="message" placeholder="Tell us about the event, guest count and required services..." /></label>
-            <button className="btn btn-primary full" type="submit">Send Inquiry <ArrowRight size={18} /></button>
-            {formSent && <p className="form-note success">Demo form submitted. Connect this form to EmailJS, Formspree or your own backend before publishing.</p>}
-            <p className="form-note">This demo form does not send messages yet. The WhatsApp and call buttons work immediately.</p>
+            <button className="btn btn-primary full" type="submit" disabled={formStatus === 'sending'}>
+              {formStatus === 'sending' ? 'Sending...' : 'Send Inquiry'} <ArrowRight size={18} />
+            </button>
+            {formStatus === 'success' && <p className="form-note success" role="status">Thank you! Your inquiry has been sent successfully. We&apos;ll get back to you soon.</p>}
+            {formStatus === 'error' && <p className="form-note error" role="alert">Sorry, we couldn&apos;t send your inquiry. Please try again or contact us through WhatsApp.</p>}
           </form>
         </section>
       </main>
