@@ -226,6 +226,8 @@ body::before {
 .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: rgba(255,189,26,.5); box-shadow: 0 0 0 3px rgba(255,189,26,.06); }
 .form-note { color: #65656a; font-size: 10px; line-height: 1.55; text-align: center; margin: 12px 0 0; }
 .form-note.success { color: #dfb84e; }
+.form-note.error { color: #ff8f7d; }
+.contact-form .btn:disabled { cursor: wait; opacity: .7; transform: none; }
 
 footer { width: min(1240px, calc(100% - 36px)); margin: 0 auto; padding: 28px 0 42px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto auto; gap: 30px; align-items: center; }
 .footer-brand { display: flex; align-items: center; gap: 11px; }
